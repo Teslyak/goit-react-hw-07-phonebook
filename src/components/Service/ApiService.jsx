@@ -7,3 +7,7 @@ axios.defaults.baseURL = BASE_URL;
 export const fetchDataAll = signal => {
   return axios.get('contacts', { signal });
 };
+
+export const addNewContacts = contact => {
+  return axios.post('contacts', contact);
+};
