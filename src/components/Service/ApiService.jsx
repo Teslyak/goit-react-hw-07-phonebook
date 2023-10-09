@@ -1,9 +1,9 @@
-import { axios } from 'axios';
+import axios from 'axios';
 
-const BASE_URL = 'https://65229e30f43b17938414b4a4.mockapi.io/api/contacts/';
+const BASE_URL = 'https://6523cab7ea560a22a4e8d9dd.mockapi.io';
 
-axios.defaults.BASE_URL = BASE_URL;
+axios.defaults.baseURL = BASE_URL;
 
-export const fetchData = () => {
-  return axios.fetch();
+export const fetchDataAll = signal => {
+  return axios.get('contacts', { signal });
 };

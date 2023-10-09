@@ -1,36 +1,47 @@
-import { ContactListItem } from 'components/ContactListIthem/ContactListItem'
+import { ContactListItem } from 'components/ContactListIthem/ContactListItem';
 import { deleteContacts } from 'components/Redux/contactsSlice';
-import React from 'react'
+import { fetchContacts } from 'components/Redux/operations';
+import { selectContacts, selectisFilter } from 'components/Redux/selectors';
+import React, { useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 export const ContactList = () => {
-    const contacts = useSelector(state => state.contacts);    
-    const filter = useSelector(state => state.filter);    
-    const dispatch = useDispatch();
-    
-    const getFilterText = () => {     
-        const normalizedFilter = filter.toLowerCase().trim();        
-        return contacts.filter(el => {        
-            return el.name.toLowerCase().includes(normalizedFilter);            
-        });        
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectisFilter);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const controller = new AbortController();
+    dispatch(fetchContacts(controller.signal));
+
+    return () => {
+      console.log(controller);
+      return controller.abort();
     };
+  }, [dispatch]);
 
-    
-    const handleDelete = (id) => {      
-        dispatch(deleteContacts(id));
-        
+  const getFilterText = () => {
+    const normalizedFilter = filter.toLowerCase().trim();
+    return contacts.filter(el => {
+      return el.name.toLowerCase().includes(normalizedFilter);
+    });
   };
-   
-    return (
-        <>   
-        <ul>
-            {getFilterText().map(el => (
-                <ContactListItem onDeleteContact={() => handleDelete(el.id)} item={el} key={el.id}  />
-            ))}
-            </ul>
-        </>
-   )
- 
-}
 
+  const handleDelete = id => {
+    dispatch(deleteContacts(id));
+  };
 
+  return (
+    <>
+      <ul>
+        {getFilterText().map(el => (
+          <ContactListItem
+            onDeleteContact={() => handleDelete(el.id)}
+            item={el}
+            key={el.id}
+          />
+        ))}
+      </ul>
+    </>
+  );
+};
