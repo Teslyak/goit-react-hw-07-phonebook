@@ -11,3 +11,7 @@ export const fetchDataAll = signal => {
 export const addNewContacts = contact => {
   return axios.post('contacts', contact);
 };
+
+export const delContact = id => {
+  return axios.delete(`contacts/${id}`);
+};

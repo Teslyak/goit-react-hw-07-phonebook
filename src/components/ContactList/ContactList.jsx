@@ -1,6 +1,6 @@
 import { ContactListItem } from 'components/ContactListIthem/ContactListItem';
 import { deleteContacts } from 'components/Redux/contactsSlice';
-import { fetchContacts } from 'components/Redux/operations';
+import { deleteContact, fetchContacts } from 'components/Redux/operations';
 import { selectContacts, selectisFilter } from 'components/Redux/selectors';
 import React, { useEffect } from 'react';
 
@@ -15,7 +15,6 @@ export const ContactList = () => {
     dispatch(fetchContacts(controller.signal));
 
     return () => {
-      console.log(controller);
       return controller.abort();
     };
   }, [dispatch]);
@@ -28,7 +27,7 @@ export const ContactList = () => {
   };
 
   const handleDelete = id => {
-    dispatch(deleteContacts(id));
+    dispatch(deleteContact(id));
   };
 
   return (
