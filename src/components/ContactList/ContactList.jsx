@@ -1,10 +1,6 @@
 import { ContactListItem } from 'components/ContactListIthem/ContactListItem';
 import { deleteContact, fetchContacts } from 'components/Redux/operations';
-import {
-  selectContacts,
-  selectFilter,
-  selectIsLoading,
-} from 'components/Redux/selectors';
+import { selectContacts, selectFilter } from 'components/Redux/selectors';
 import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
