@@ -1,13 +1,16 @@
 import { ContactListItem } from 'components/ContactListIthem/ContactListItem';
-import { deleteContacts } from 'components/Redux/contactsSlice';
 import { deleteContact, fetchContacts } from 'components/Redux/operations';
-import { selectContacts, selectisFilter } from 'components/Redux/selectors';
+import {
+  selectContacts,
+  selectFilter,
+  selectIsLoading,
+} from 'components/Redux/selectors';
 import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectisFilter);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
